@@ -1,0 +1,23 @@
+{
+  "name": "node-unoconv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damian66/node-unoconv.git"
+  },
+  "keywords": [
+    "unoconv",
+    "office"
+  ],
+  "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/damian66/node-unoconv/issues"
+  },
+  "homepage": "https://github.com/damian66/node-unoconv#readme"
+}
