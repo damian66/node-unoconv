@@ -2,7 +2,7 @@ export type CommandArguments = {
   [key: string]: string
 };
 
-export type Callback = (output: Buffer) => void;
+export type Callback = (output: Buffer | string | undefined, error?: Error) => void;
 
 export type OptionValues = string | string[] | number | boolean | Callback;
 

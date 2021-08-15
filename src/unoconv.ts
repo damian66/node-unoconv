@@ -89,12 +89,15 @@ const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject
     debug('node-unoconv finished with code: %s', code);
     if (stderr.length) {
       const error = new Error(Buffer.concat(stderr).toString('utf8'));
+      callback(undefined, error);
       reject(error);
       debug(error);
       return;
     }
 
-    const result = Buffer.concat(stdout);
+    const result = options.output
+      ? options.output
+      : Buffer.concat(stdout);
     callback(result);
     resolve(result);
   });
