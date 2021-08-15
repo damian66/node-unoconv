@@ -1,4 +1,4 @@
-import { Options } from './types';
+import { Options, ReturnOutput } from './types';
 import listen from './listen';
 import convert from './convert';
 
@@ -7,7 +7,7 @@ export {
   listen,
 };
 
-const defaultExport = function unoconv(input: string, options: Options): void {
+const defaultExport = function unoconv(input: string, options: Options): ReturnOutput {
   return convert(input, options);
 };
 

@@ -2,14 +2,32 @@
   "name": "node-unoconv",
   "version": "0.1.0",
   "description": "",
-  "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
   "license": "MIT",
+  "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
+  "homepage": "https://github.com/damian66/node-unoconv#readme",
   "main": "dist/index.js",
   "types": "./src/types.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damian66/node-unoconv.git"
+  },
+  "keywords": [
+    "unoconv",
+    "office",
+    "libreoffice",
+    "openoffice"
+  ],
+  "bugs": {
+    "url": "https://github.com/damian66/node-unoconv/issues"
+  },
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**/*.ts",
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm run build & npm publish"
   },
   "dependencies": {
     "debug": "^4.3.2"
@@ -25,17 +43,5 @@
     "jest": "^27.0.6",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/damian66/node-unoconv.git"
-  },
-  "keywords": [
-    "unoconv",
-    "office"
-  ],
-  "bugs": {
-    "url": "https://github.com/damian66/node-unoconv/issues"
-  },
-  "homepage": "https://github.com/damian66/node-unoconv#readme"
+  }
 }

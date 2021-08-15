@@ -38,3 +38,5 @@ export type Options = {
 };
 
 export type MixedFunctionArguments = (string | Options)[];
+
+export type ReturnOutput = Promise<string | Buffer>;

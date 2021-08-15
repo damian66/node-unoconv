@@ -1,7 +1,7 @@
-import { Options } from './types';
+import { Options, ReturnOutput } from './types';
 import unoconv from './unoconv';
 
-const listen = (options: Options = {}): void => {
+const listen = (options: Options = {}): ReturnOutput => {
   const unoconvOptions: Options = {
     ...options,
     listener: true,

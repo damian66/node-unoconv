@@ -2,8 +2,11 @@
 import debugFactory from 'debug';
 
 import { spawn } from 'child_process';
-import { Callback, Options, OptionValues } from './types';
 import { COMMAND_ARGUMENTS, DEFAULT_OPTIONS } from './constants';
+import {
+  Callback, Options,
+  OptionValues, ReturnOutput,
+} from './types';
 
 const debug = debugFactory('node-unoconv:command');
 
@@ -23,7 +26,9 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
 
     switch (typeof argValue) {
       case 'boolean':
-        args.push(argName);
+        if (argValue) {
+          args.push(argName);
+        }
         break;
       case 'string':
       default:
@@ -32,10 +37,6 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
     }
   });
 
-  if (debug_) {
-    args.push('-vvv');
-  }
-
   if (input) {
     args.push(input);
   }
@@ -43,7 +44,7 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
   return args;
 };
 
-const unoconv = (options: Options): void => {
+const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject) => {
   const stdout: Uint8Array[] = [];
   const stderr: Uint8Array[] = [];
 
@@ -53,6 +54,15 @@ const unoconv = (options: Options): void => {
     ...DEFAULT_OPTIONS,
     ...options,
   };
+
+  if (options.debug) {
+    debugFactory.enable('node-unoconv:*');
+  }
+
+  if (options.output) {
+    cmdOptions.stdout = false;
+    // delete cmdOptions.stdout;
+  }
 
   const args = prepareCommandArgs(cmdOptions);
 
@@ -79,11 +89,15 @@ const unoconv = (options: Options): void => {
     debug('node-unoconv finished with code: %s', code);
     if (stderr.length) {
       const error = new Error(Buffer.concat(stderr).toString('utf8'));
+      reject(error);
       debug(error);
       return;
     }
-    callback(Buffer.concat(stdout));
+
+    const result = Buffer.concat(stdout);
+    callback(result);
+    resolve(result);
   });
-};
+});
 
 export default unoconv;
