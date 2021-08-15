@@ -1,13 +1,13 @@
 {
   "name": "node-unoconv",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "./src/types.d.ts",
   "scripts": {
-    "build": "tsc --esModuleInterop",
+    "build": "tsc",
     "lint": "eslint src/**/*.ts",
     "test": "jest"
   },
