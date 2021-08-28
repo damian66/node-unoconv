@@ -1,7 +1,77 @@
 # node-unoconv
 NodeJS wrapper for unoconv.
 
+## Installation
+
+### Required dependencies
+
+The node-unoconv package requires [unoconv](https://github.com/unoconv/unoconv) and its dependencies to be installed. 
+
+#### Installing LibreOffice or OpenOffice software
+
+Office software is required to run [unoconv](https://github.com/unoconv/unoconv). LibreOffice is recommended but OpenOffice is still supported.
+
+- ##### LibreOffice installation
+
+  Please see official installation instructions on the LibreOffice website.  
+  https://www.libreoffice.org/get-help/install-howto/
+
+  Use command below to install LibreOffice inside Docker container:
+  ```
+  RUN apt-get -y install libreoffice
+  ```
+  
+- ##### OpenOffice installation
+
+  Please see official installation instructions on the OpenOffice website.  
+  https://www.openoffice.org/download/common/instructions.html
+
+### Installing node-unoconv package
+
+After you install required dependencies, the node-unoconv package can be installed using commands below:
+```bash
+npm install node-unoconv
+
+# or using yarn
+
+yarn add node-unoconv
+```
+
 ## Usage
+
+There are few ways to import node-unoconv package to your NodeJS project:
+
+#### ES6
+```js
+// ES6 import
+import unoconv from 'node-unoconv';
+
+unoconv.convert(input, options?); // Converting a file
+unoconv.listen(options?); // Starting a conversion listener
+```
+```js
+// Using named exports
+import { convert, listen } from 'node-unoconv';
+
+convert(input, options?); // Converting a file
+listen(options?); // Starting a conversion listener
+```
+
+#### Require
+```js
+// Using Require
+const unoconv = require('node-unoconv');
+
+unoconv.convert(input, options?); // Converting a file
+unoconv.listen(options?); // Starting a conversion listener
+```
+```js
+// Alternative way to require convert or listen methods
+const { convert, listen } = require('node-unoconv');
+
+convert(input, options?); // Converting a file
+listen(options?); // Starting a conversion listener
+```
 
 ### Converting files
 
@@ -16,7 +86,7 @@ unoconv.convert('file.doc')
     console.error(err);
   });
   
-// or using await keyword
+// or with async/await
 
 const buffer = await unoconv.convert('file.doc');
 ```
