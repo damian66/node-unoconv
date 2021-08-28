@@ -61,21 +61,12 @@ const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject
 
   if (options.output) {
     cmdOptions.stdout = false;
-    // delete cmdOptions.stdout;
   }
 
   const args = prepareCommandArgs(cmdOptions);
 
   debug(`Running command: unoconv ${args.join(' ')}`);
   const childProcess = spawn('unoconv', args);
-
-  childProcess.on('error', (err: Error) => {
-    if (err.message.indexOf('ENOENT') > -1) {
-      debug('unoconv command not found. %o', err);
-    }
-
-    debug('%o', err);
-  });
 
   childProcess.stdout.on('data', (data: Uint8Array) => {
     stdout.push(data);
@@ -95,11 +86,17 @@ const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject
       return;
     }
 
-    const result = options.output
-      ? options.output
-      : Buffer.concat(stdout);
+    const result = options.output || Buffer.concat(stdout);
     callback(result);
     resolve(result);
+  });
+
+  childProcess.on('error', (err: Error) => {
+    if (err.message.indexOf('ENOENT') > -1) {
+      debug('unoconv command not found. %o', err);
+    }
+
+    debug('%o', err);
   });
 });
 

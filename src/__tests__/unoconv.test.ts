@@ -1,6 +1,25 @@
-import { prepareCommandArgs } from '../unoconv';
+import { spawn } from 'child_process';
 
-// jest.mock('../unoconv.ts');
+import unoconv, { prepareCommandArgs } from '../unoconv';
+
+const spawnMock = <jest.Mock>spawn;
+
+jest.mock('child_process', () => ({
+  __esModule: true,
+  spawn: jest.fn().mockReturnValue({
+    on: jest.fn(),
+    stdout: {
+      on: jest.fn(),
+    },
+    stderr: {
+      on: jest.fn(),
+    },
+  }),
+}));
+
+beforeEach(() => {
+  spawnMock.mockClear();
+});
 
 describe('prepareCommandArgs', () => {
   it('returns an empty array if passed object is empty', () => {
@@ -33,5 +52,23 @@ describe('prepareCommandArgs', () => {
     const args = prepareCommandArgs(options);
 
     expect(args).toEqual(['-f', 'pdf', '-o', 'bar.pdf', '--server', '//host', '-p', '20']);
+  });
+});
+
+describe('Unoconv', () => {
+  // const closeChildProcess = () => {
+  //   const { value: childProcess } = spawnMock.mock.results[0];
+  //   const { 1: onCloseCallback } = childProcess.on.mock.calls[0];
+
+  //   console.log(onCloseCallback);
+  //   if (typeof onCloseCallback === 'function') {
+  //     onCloseCallback();
+  //   }
+  // };
+
+  it('spawns a child process and call unoconv with a default argument list if no options are passed', () => {
+    unoconv({});
+
+    expect(spawnMock.mock.calls[0]).toEqual(['unoconv', ['-f', 'pdf', '--stdout']]);
   });
 });
