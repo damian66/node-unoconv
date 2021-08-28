@@ -5,9 +5,9 @@ Lightweight NodeJS wrapper for unoconv, a Universal Office Converter.
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/node-unoconv)
 ![npm](https://img.shields.io/npm/dm/node-unoconv)
 
-## Installation
+## 📦 Installation
 
-### Required dependencies
+### ⚙️ Required dependencies
 
 The node-unoconv package requires [unoconv](https://github.com/unoconv/unoconv) and its dependencies to be installed. 
 
@@ -30,7 +30,7 @@ Office software is required to run [unoconv](https://github.com/unoconv/unoconv)
   Please see official installation instructions on the OpenOffice website.  
   https://www.openoffice.org/download/common/instructions.html
 
-### Installing node-unoconv package
+### ⚙️ Installing node-unoconv package
 
 After you install required dependencies, the node-unoconv package can be installed using commands below:
 ```bash
@@ -41,7 +41,7 @@ npm install node-unoconv
 yarn add node-unoconv
 ```
 
-## Usage
+## 📃 Usage
 
 There are few ways to import node-unoconv package to your NodeJS project:
 
