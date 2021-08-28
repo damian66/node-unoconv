@@ -7,7 +7,7 @@ export {
   listen,
 };
 
-const defaultExport = function unoconv(input: string, options: Options): ReturnOutput {
+const defaultExport = function unoconv(input: string, options: Options = {}): ReturnOutput {
   return convert(input, options);
 };
 
