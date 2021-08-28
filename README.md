@@ -1,5 +1,9 @@
 # node-unoconv
-NodeJS wrapper for unoconv.
+Lightweight NodeJS wrapper for unoconv, a Universal Office Converter.
+
+![npm](https://img.shields.io/npm/v/node-unoconv)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/node-unoconv)
+![npm](https://img.shields.io/npm/dm/node-unoconv)
 
 ## Installation
 
