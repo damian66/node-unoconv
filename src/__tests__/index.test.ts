@@ -1,14 +1,21 @@
 import defaultConvert from '..';
 import convert from '../convert';
 
-jest.mock('../convert.ts');
+jest.mock('../convert.ts', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+beforeEach(() => {
+  (<jest.Mock>convert).mockClear();
+});
 
 describe('Default export', () => {
   it('calls unoconv command', async () => {
     const inputString = 'foo.txt';
     await defaultConvert(inputString);
 
-    expect(convert).toBeCalledWith(inputString);
+    expect((<jest.Mock>convert).mock.calls[0]).toEqual([inputString, {}]);
   });
 
   it('passes both input and options arguments to convert function', async () => {
@@ -19,6 +26,6 @@ describe('Default export', () => {
     };
     await defaultConvert(inputString, options);
 
-    expect(convert).toBeCalledWith(inputString, options);
+    expect((<jest.Mock>convert).mock.calls[0]).toEqual([inputString, options]);
   });
 });
