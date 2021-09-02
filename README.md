@@ -133,96 +133,26 @@ unoconv.listen(options);
 ```
 
 ## 🛠 Options
-- #### connection
-  UNO connection string to be used by the client to connect to an LibreOffice instance, or used by the listener to make LibreOffice listen.
-  ```js
-  connection: 'socket,host=localhost,port=2002;urp;StarOffice.ComponentContext'
-  ```
 
-  #### disableHtmlUpdateLinks
-  disables the recheck for updating links missed by libreoffice
-  ```js
-  disableHtmlUpdateLinks: false
-  ```
-
-- #### doctype
-  Specify the LibreOffice document type of the backend format. Possible document types are: document, graphics, presentation, spreadsheet.
-  ```js
-  doctype: 'document'
-  ```
-
-- #### export
-  Set specific export filter options (related to the used LibreOffice filter).
-
-- #### field
-  Replace user-defined text field with value.
-  
-- #### format
-  Specify the output format for the document. You can get a list of possible output formats per document type by using the --show option.
-  Default document type is 'pdf'.
-  ```js
-  format: 'pdf'
-  ```
-
-- #### import
-  Set specific import filters options (related to the used LibreOffice import filter based on the input filename).
-  ```js
-  import: 'utf-8'
-  ```
-  
-- #### importFilterName
-  Set import filter name, useful when converting stdin or files without an extension).
-  ```js
-  importFilterName: 'ooxml'
-  ```
-  
-- #### listener
-  Start unoconv as listener for unoconv clients to connect to. It's recommended to start the listener with `listen()` method.
-  ```js
-  listener: false
-  ```
-  
-- #### noLaunch
-  By default if no listener is running, unoconv will launch its own (temporary) listener to make sure the conversion works. This option will abort the conversion if no listener is found, rather than starting our own listener.
-  ```js
-  noListener: false
-  ```
-  
-- #### output
-  Output basename, filename or directory.
-
-- #### password
-  Provide a password to decrypt the document.
-  
-- #### pipe
-  Use a pipe as an alternative connection mechanism to talk to LibreOffice.
-  
-- #### port
-  Port to listen on (as listener) or to connect to (as client).
-  ```js
-  port: 2002
-  ```
-  
-- #### preserve
-  Keep timestamp and permissions of the original document.
-  ```js
-  preserve: false
-  ```
-  
-- #### printer
-  Printer options
-    - PaperFormat: specify printer paper format  
-      eg. `PaperFormat=A3`  
-    - PaperOrientation: specify printer paper orientation  
-      eg. `PaperOrientation=landscape`  
-    - PapserSize: specify printer paper size, paper format should set to USER, size=widthxheight  
-      eg. `PaperSize=130x200` means width=130, height=200  
-      
-- #### server
-  Server (address) to listen on (as listener) or to connect to (as client).
-  ```js
-  server: '127.0.0.1'
-  ```
+| Option                     | Type   | Default     | Description |
+| -------------------------- | ------ | ----------- | ----------- |
+| **connection**             | string |             | UNO connection string to be used by the client to connect to an LibreOffice instance, or used by the listener to make LibreOffice listen.
+| **output**                 | string | `output`    | Output basename, filename or directory.
+| **doctype**                | string | `document`  | Specify the LibreOffice document type of the backend format. Possible document types are: document, graphics, presentation, spreadsheet.
+| **password**               | string |             | Provide a password to decrypt the document.
+| **server**                 | string | `127.0.0.1` | Server (address) to listen on (as listener) or to connect to (as client).
+| **port**                   | number | `2002`      | Port to listen on (as listener) or to connect to (as client).
+| **pipe**                   |        |             | Use a pipe as an alternative connection mechanism to talk to LibreOffice.
+| **export**                 | string |             | Set specific export filter options (related to the used LibreOffice filter).
+| **field**                  | string |             | Replace user-defined text field with value.
+| **format**                 | string | `pdf`       | Specify the output format for the document. You can get a list of possible output formats per document type by using the --show option. Default document type is 'pdf'.
+| **import**                 | string | `utf-8`     | Set specific import filters options (related to the used LibreOffice import filter based on the input filename).
+| **importFilterName**       | string | `xml`       | Set import filter name, useful when converting stdin or files without an extension).
+| **listener**               | bool   | `false`     | Start unoconv as listener for unoconv clients to connect to. It's recommended to start the listener with `listen()` method.
+| **disableHtmlUpdateLinks** | bool   | `false`     | Disables the recheck for updating links missed by libreoffice
+| **noLaunch**               | bool   | `false`     | By default if no listener is running, unoconv will launch its own (temporary) listener to make sure the conversion works. This option will abort the conversion if no listener is found, rather than starting our own listener.
+| **preserve**               | bool   | `false`     | Keep timestamp and permissions of the original document.
+| **printer**                | string |             | Printer options<br/> - PaperFormat: specify printer paper format, eg. `PaperFormat=A3`<br/>- PaperOrientation: specify printer paper orientation, eg. `PaperOrientation=landscape`<br/>- PapserSize: specify printer paper size, paper format should set to USER, size=widthxheight, e.g. eg. `PaperSize=130x200` means width=130, height=200
 
 #### List of available options with its arguments passed to [unoconv](https://github.com/unoconv/unoconv).
 ```js
