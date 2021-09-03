@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import debugFactory from 'debug';
 
-import { spawn } from 'child_process';
+import { spawn, ChildProcess } from 'child_process';
 import { COMMAND_ARGUMENTS, DEFAULT_OPTIONS } from './constants';
 import {
   Callback, Options,
@@ -44,7 +44,7 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
   return args;
 };
 
-const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject) => {
+const run = (options: Options): ChildProcess => {
   const stdout: Uint8Array[] = [];
   const stderr: Uint8Array[] = [];
 
@@ -80,24 +80,43 @@ const unoconv = (options: Options): ReturnOutput => new Promise((resolve, reject
     debug('node-unoconv finished with code: %s', code);
     if (stderr.length) {
       const error = new Error(Buffer.concat(stderr).toString('utf8'));
-      callback(undefined, error);
-      reject(error);
-      debug(error);
+      debug('%o', error);
+      callback(error);
       return;
     }
 
     const result = options.output || Buffer.concat(stdout);
-    callback(result);
-    resolve(result);
+    callback(null, result);
   });
 
   childProcess.on('error', (err: Error) => {
     if (err.message.indexOf('ENOENT') > -1) {
       debug('unoconv command not found. %o', err);
+      return;
     }
 
     debug('%o', err);
   });
-});
+
+  return childProcess;
+};
+
+const unoconv = (options: Options): ReturnOutput => {
+  if (!options.callback) {
+    // Return a promise if there is no callback
+    return new Promise((resolve, reject) => {
+      // Assign a fake callback that would either resolve or reject the promise
+      options.callback = (err, result) => {
+        return err
+        ? reject(err)
+        : resolve(result);
+    }
+
+      return run(options);
+    });
+  }
+
+  return run(options);
+};
 
 export default unoconv;
