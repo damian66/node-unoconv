@@ -1,8 +1,10 @@
+import debugFactory from 'debug';
+
 export type CommandArguments = {
   [key: string]: string
 };
 
-export type Callback = (output: Buffer | string | undefined, error?: Error) => void;
+export type Callback = (error: Error | null, output?: Buffer | string | undefined) => void;
 
 export type OptionValues = string | string[] | number | boolean | Callback;
 
@@ -39,4 +41,15 @@ export type Options = {
 
 export type MixedFunctionArguments = (string | Options)[];
 
-export type ReturnOutput = Promise<string | Buffer>;
+export type ReturnOutput = ChildProcessWithoutNullStreams | Promise<string | Buffer>;
+
+export interface DebugMock extends Partial(debugFactory.Debugger), Partial<jest.Mock> {
+  debug?: () => void;
+  default?: () => void;
+}
+
+export interface DebugFactoryMock extends Partial<jest.Mock> {
+  (...args): DebugMock;
+  enable?: ((namespaces: string) => void) | jest.Mock;
+  debugMock?: DebugMock;
+};
