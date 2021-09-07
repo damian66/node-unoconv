@@ -25,6 +25,12 @@ afterEach(() => {
 });
 
 describe('prepareCommandArgs', () => {
+  it('returns an empty array if user skipped the options argument', () => {
+    const args = prepareCommandArgs();
+
+    expect(args).toEqual([]);
+  });
+
   it('returns an empty array if passed object is empty', () => {
     const args = prepareCommandArgs({});
 
@@ -44,6 +50,27 @@ describe('prepareCommandArgs', () => {
 
     expect(args).toEqual(['-l']);
   });
+
+  it('adds option multiple times if the value type is an array', () => {
+    const options = { field: ['foo=bar', 'abc=def'] };
+    const args = prepareCommandArgs(options);
+
+    expect(args).toEqual(['-F', 'foo=bar', '-F', 'abc=def']);
+  });
+
+  it('adds option multiple times if the value type is an array', () => {
+    const options = {
+      printer: {
+        PaperFormat: 'A3',
+        PaperOrientation: 'landscape',
+        PaperSize: '130x200'
+      },
+    };
+    const args = prepareCommandArgs(options);
+
+    expect(args).toEqual(['--printer', 'PaperFormat=A3', '--printer', 'PaperOrientation=landscape', '--printer', 'PaperSize=130x200']);
+  });
+
 
   it('retruns an array of command arguments', () => {
     const options = {

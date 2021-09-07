@@ -134,27 +134,68 @@ unoconv.listen(options);
 
 ## 🛠 Options
 
-| Option                     | Type   | Default     | Description |
-| -------------------------- | ------ | ----------- | ----------- |
-| **connection**             | string |             | UNO connection string to be used by the client to connect to an LibreOffice instance, or used by the listener to make LibreOffice listen.
-| **output**                 | string | `output`    | Output basename, filename or directory.
-| **doctype**                | string | `document`  | Specify the LibreOffice document type of the backend format. Possible document types are: document, graphics, presentation, spreadsheet.
-| **password**               | string |             | Provide a password to decrypt the document.
-| **server**                 | string | `127.0.0.1` | Server (address) to listen on (as listener) or to connect to (as client).
-| **port**                   | number | `2002`      | Port to listen on (as listener) or to connect to (as client).
-| **pipe**                   |        |             | Use a pipe as an alternative connection mechanism to talk to LibreOffice.
-| **export**                 | string |             | Set specific export filter options (related to the used LibreOffice filter).
-| **field**                  | string |             | Replace user-defined text field with value.
-| **format**                 | string | `pdf`       | Specify the output format for the document. You can get a list of possible output formats per document type by using the --show option. Default document type is 'pdf'.
-| **import**                 | string | `utf-8`     | Set specific import filters options (related to the used LibreOffice import filter based on the input filename).
-| **importFilterName**       | string | `xml`       | Set import filter name, useful when converting stdin or files without an extension).
-| **listener**               | bool   | `false`     | Start unoconv as listener for unoconv clients to connect to. It's recommended to start the listener with `listen()` method.
-| **disableHtmlUpdateLinks** | bool   | `false`     | Disables the recheck for updating links missed by libreoffice
-| **noLaunch**               | bool   | `false`     | By default if no listener is running, unoconv will launch its own (temporary) listener to make sure the conversion works. This option will abort the conversion if no listener is found, rather than starting our own listener.
-| **preserve**               | bool   | `false`     | Keep timestamp and permissions of the original document.
-| **printer**                | string |             | Printer options<br/> - PaperFormat: specify printer paper format, eg. `PaperFormat=A3`<br/>- PaperOrientation: specify printer paper orientation, eg. `PaperOrientation=landscape`<br/>- PapserSize: specify printer paper size, paper format should set to USER, size=widthxheight, e.g. eg. `PaperSize=130x200` means width=130, height=200
+| Option                     | Type     | Default     | Description |
+| -------------------------- | -------- | ----------- | ----------- |
+| **connection**             | string   |             | UNO connection string to be used by the client to connect to an LibreOffice instance, or used by the listener to make LibreOffice listen.
+| **output**                 | string   | `file.pdf`  | Output basename, filename or directory.
+| **doctype**                | string   | `document`  | Specify the LibreOffice document type of the backend format. Possible document types are: document, graphics, presentation, spreadsheet.
+| **password**               | string   |             | Provide a password to decrypt the document.
+| **server**                 | string   | `127.0.0.1` | Server (address) to listen on (as listener) or to connect to (as client).
+| **port**                   | number   | `2002`      | Port to listen on (as listener) or to connect to (as client).
+| **pipe**                   |          |             | Use a pipe as an alternative connection mechanism to talk to LibreOffice.
+| **export**                 | string[] |             | Set specific export filter options (related to the used LibreOffice filter).
+| **field**                  | string[] |             | Replace user-defined text field with value.
+| **format**                 | string   | `pdf`       | Specify the output format for the document. You can get a list of possible output formats per document type by using the --show option. Default document type is 'pdf'.
+| **import**                 | string   | `utf-8`     | Set specific import filters options (related to the used LibreOffice import filter based on the input filename).
+| **inputFilterName**        | string   | `xml`       | Set input filter name, useful when converting stdin or files without an extension.
+| **listener**               | bool     | `false`     | Start unoconv as listener for unoconv clients to connect to. It's recommended to start the listener with `listen()` method.
+| **disableHtmlUpdateLinks** | bool     | `false`     | Disables the recheck for updating links missed by libreoffice
+| **noLaunch**               | bool     | `false`     | By default if no listener is running, unoconv will launch its own (temporary) listener to make sure the conversion works. This option will abort the conversion if no listener is found, rather than starting our own listener.
+| **preserve**               | bool     | `false`     | Keep timestamp and permissions of the original document.
+| **printer**                | string[] |             | Printer options<br/> - PaperFormat: specify printer paper format, eg. `PaperFormat=A3`<br/>- PaperOrientation: specify printer paper orientation, eg. `PaperOrientation=landscape`<br/>- PapserSize: specify printer paper size, paper format should set to USER, size=widthxheight, e.g. eg. `PaperSize=130x200` means width=130, height=200
 
-#### List of available options with its arguments passed to [unoconv](https://github.com/unoconv/unoconv).
+### Multiple option values
+
+Multiple values can be passed to an option as an array or as an object literal. See the example below, both ways result in the same command arguments passed to unoconv.
+```javascript
+const options = {
+  printer: ['PaperFormat=A3', 'PaperOrientation=landscape'],
+};
+
+// or
+
+const options = {
+  printer: {
+    PaperFormat: 'A3',
+    PaperOrientation: 'landscape',
+  },
+};
+```
+
+### Example options
+```javascript
+const options = {
+  connection: 'socket,host=localhost,port=2002;urp;StarOffice.ComponentContext',
+  output: 'PDF',
+  doctype: 'document',
+  password: 'Abc123!@#',
+  server: '127.0.0.1',
+  port: 2002,
+  export: { PageRange: '1-2' },
+  field: { foo: 'bar' },
+  format: 'PDF',
+  import: { Quality: 50 },
+  inputFilterName: 'odt',
+  disableHtmlUpdateLinks: false,
+  noLaunch: true,
+  preserve: true,
+  printer: ['PaperFormat=A3', 'PaperOrientation=landscape'],
+}
+```
+
+<details><summary>List of available options with its arguments passed to [unoconv](https://github.com/unoconv/unoconv).</summary>
+<p>
+
 ```js
 {
   connection: '-c',
@@ -184,3 +225,6 @@ unoconv.listen(options);
   verbose: '--verbose',
 };
 ```
+
+</p>
+</details>

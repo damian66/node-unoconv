@@ -6,7 +6,9 @@ export type CommandArguments = {
 
 export type Callback = (error: Error | null, output?: Buffer | string | undefined) => void;
 
-export type OptionValues = string | string[] | number | boolean | Callback;
+export type OptionMultiple = string[] | number[] | { [key: string]: string | number };
+
+export type OptionValues = string | number | boolean | Callback | OptionMultiple;
 
 export type Options = {
   [key: string]: OptionValues,
@@ -14,11 +16,11 @@ export type Options = {
   connection?: string,
   disableHtmlUpdateLinks?: boolean,
   doctype?: string,
-  export?: string | string[],
-  field?: string | string[],
+  export?: string | OptionMultiple,
+  field?: string | OptionMultiple,
   format?: string,
   import?: string,
-  importFilterName?: string,
+  inputFilterName?: string,
   input?: string,
   listener?: boolean,
   noLaunch?: boolean,
@@ -27,7 +29,7 @@ export type Options = {
   pipe?: string,
   port?: number | string,
   preserve?: boolean,
-  printer?: string | string[],
+  printer?: string | OptionMultiple,
   server?: string,
   show?: boolean,
   stdin?: boolean,
