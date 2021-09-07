@@ -20,7 +20,7 @@ export type Options = {
   field?: string | OptionMultiple,
   format?: string,
   import?: string,
-  importFilterName?: string,
+  inputFilterName?: string,
   input?: string,
   listener?: boolean,
   noLaunch?: boolean,

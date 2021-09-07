@@ -8,7 +8,7 @@ export const COMMAND_ARGUMENTS: CommandArguments = {
   field: '-F',
   format: '-f',
   import: '-i',
-  importFilterName: '-I',
+  inputFilterName: '-I',
   listener: '-l',
   noLaunch: '-n',
   output: '-o',
