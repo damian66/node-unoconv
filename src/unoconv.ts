@@ -20,7 +20,8 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
   const args: string[] = [];
   const keys: string[] = Object.keys(opts);
 
-  keys.forEach((key: string) => {
+  for (const keyIndex in keys) {
+    const key: string = keys[keyIndex];
     const argName: string = COMMAND_ARGUMENTS[key];
     const argValue: OptionValues = opts[key];
 
@@ -30,12 +31,26 @@ export const prepareCommandArgs = (options: Options = {}): string[] => {
           args.push(argName);
         }
         break;
+      case 'object':
+        if (Array.isArray(argValue)) {
+          for (const index in argValue) {
+            args.push(argName, String(argValue[index]));
+          }
+        } else {
+          const arr = Object.keys(argValue);
+          for (const index in arr) {
+            const key = arr[index];
+            const value = `${key}=${String(argValue[key])}`;
+            args.push(argName, value);
+          }
+        }
+        break;
       case 'string':
       default:
         args.push(argName, String(argValue));
         break;
     }
-  });
+  };
 
   if (input) {
     args.push(input);
