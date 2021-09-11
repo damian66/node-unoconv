@@ -1,6 +1,6 @@
 {
   "name": "node-unoconv",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "license": "MIT",
   "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
@@ -40,6 +40,7 @@
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
+    "husky": "^7.0.2",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
