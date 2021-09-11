@@ -193,7 +193,10 @@ const options = {
 }
 ```
 
-<details><summary>List of available options with its arguments passed to [unoconv](https://github.com/unoconv/unoconv).</summary>
+<details>
+  <summary>
+    List of available options with its arguments passed to unoconv.
+  </summary>
 <p>
 
 ```js
@@ -228,3 +231,14 @@ const options = {
 
 </p>
 </details>
+
+---
+
+## 🚀 Alternatives
+
+| Package | Size | Last commit | Downloads/mo |
+| --- | --- | --- | --- |
+| [gfloyd/node-unoconv](https://github.com/gfloyd/node-unoconv) | ![npm bundle size](https://img.shields.io/bundlephobia/minzip/unoconv?label=%20) | ![GitHub last commit](https://img.shields.io/github/last-commit/gfloyd/node-unoconv?label=%20) | ![npm](https://img.shields.io/npm/dm/unoconv?label=%20) |
+| [zxhaaa6/awesome-unoconv](https://github.com/zxhaaa6/awesome-unoconv) | ![npm bundle size](https://img.shields.io/bundlephobia/minzip/awesome-unoconv?label=%20) | ![GitHub last commit](https://img.shields.io/github/last-commit/zxhaaa6/awesome-unoconv?label=%20) | ![npm](https://img.shields.io/npm/dm/awesome-unoconv?label=%20) |
+| [vworld4u/office-converter](https://github.com/vworld4u/office-converter) | ![npm bundle size](https://img.shields.io/bundlephobia/minzip/office-converter?label=%20) | ![GitHub last commit](https://img.shields.io/github/last-commit/vworld4u/office-converter?label=%20) | ![npm](https://img.shields.io/npm/dm/office-converter?label=%20) |
+| [ryanhanwu/Unoconv-Promise](https://github.com/ryanhanwu/Unoconv-Promise) | ![npm bundle size](https://img.shields.io/bundlephobia/minzip/unoconv-promise?label=%20) | ![GitHub last commit](https://img.shields.io/github/last-commit/ryanhanwu/Unoconv-Promise?label=%20) | ![npm](https://img.shields.io/npm/dm/unoconv-promise?label=%20) |
