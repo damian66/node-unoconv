@@ -1,6 +1,6 @@
 # Changelog
 
-## 🐶 [v1.0.0](https://github.com/damian66/node-unoconv/releases/tag/v1.0.0)
+## 🐶 [v1.0.1](https://github.com/damian66/node-unoconv/releases/tag/v1.0.1)
 
 Initial release.
 
