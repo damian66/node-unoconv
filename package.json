@@ -1,6 +1,6 @@
 {
   "name": "node-unoconv",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lightweight NodeJS wrapper for unoconv, a Universal Office Converter.",
   "license": "MIT",
   "author": "Damian Bartosik <hello@damianbartosik.com> (https://damianbartosik.com)",
