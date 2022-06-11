@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import debugFactory from 'debug';
 
-import { DebugFactoryMock, DebugMock } from '../types';
+import type { DebugFactoryMock, ReturnOutput } from '../types';
 import unoconv, { prepareCommandArgs } from '../unoconv';
 
 jest.mock('child_process', () => ({
@@ -63,14 +63,13 @@ describe('prepareCommandArgs', () => {
       printer: {
         PaperFormat: 'A3',
         PaperOrientation: 'landscape',
-        PaperSize: '130x200'
+        PaperSize: '130x200',
       },
     };
     const args = prepareCommandArgs(options);
 
     expect(args).toEqual(['--printer', 'PaperFormat=A3', '--printer', 'PaperOrientation=landscape', '--printer', 'PaperSize=130x200']);
   });
-
 
   it('retruns an array of command arguments', () => {
     const options = {
@@ -111,7 +110,7 @@ describe('Unoconv', () => {
   });
 
   it('returns a child process object', () => {
-    const callback = () => {};
+    const callback = () => undefined;
     const cp = unoconv({ callback });
 
     expect(cp).toMatchObject({
@@ -128,7 +127,7 @@ describe('Unoconv', () => {
   it('resolves a child process object when no callback is passed', (done) => {
     const promise = unoconv({});
 
-    promise.then((data: any) => {
+    promise.then((data: ReturnOutput) => {
       expect(data).toBeInstanceOf(Buffer);
 
       expect(getDebugMock().mock.calls[1]).toMatchObject(['node-unoconv finished with code: %s', '123']);
@@ -170,7 +169,7 @@ describe('Unoconv', () => {
     const arr = [
       new Uint8Array(1),
       new Uint8Array(2),
-      new Uint8Array(3)
+      new Uint8Array(3),
     ];
 
     stdoutCallback(arr[0]);
@@ -183,7 +182,6 @@ describe('Unoconv', () => {
     const buffer = await promise;
     expect(buffer).toBeInstanceOf(Buffer);
 
-
     expect(buffer).toMatchObject(bufferToTest);
   });
 
@@ -194,9 +192,9 @@ describe('Unoconv', () => {
     const { 1: stderrCallback } = childProcess.stderr.on.mock.calls[0];
 
     const arr = [
-      Uint8Array.from([...'Hello '].map(ch => ch.charCodeAt(0))),
-      Uint8Array.from([...'World'].map(ch => ch.charCodeAt(0))),
-      Uint8Array.from([...'!'].map(ch => ch.charCodeAt(0)))
+      Uint8Array.from([...'Hello '].map((ch) => ch.charCodeAt(0))),
+      Uint8Array.from([...'World'].map((ch) => ch.charCodeAt(0))),
+      Uint8Array.from([...'!'].map((ch) => ch.charCodeAt(0))),
     ];
 
     stderrCallback(arr[0]);
@@ -204,7 +202,7 @@ describe('Unoconv', () => {
     stderrCallback(arr[2]);
 
     closeChildProcess();
-    const bufferToTest = Buffer.concat(arr);
+    Buffer.concat(arr);
 
     return promise.catch((err: Error) => {
       expect(err).toBeInstanceOf(Error);
@@ -215,7 +213,7 @@ describe('Unoconv', () => {
   });
 
   it('logs a message to the console when child_process send an error message', async () => {
-    const promise = unoconv({});
+    unoconv({});
 
     const { value: childProcess } = spawnMock.mock.results[0];
     const { 1: errorCallback } = childProcess.on.mock.calls[1];
@@ -228,7 +226,7 @@ describe('Unoconv', () => {
   });
 
   it('logs a message to the console when child_process throws ENOENT error', async () => {
-    const promise = unoconv({});
+    unoconv({});
 
     const { value: childProcess } = spawnMock.mock.results[0];
     const { 1: errorCallback } = childProcess.on.mock.calls[1];

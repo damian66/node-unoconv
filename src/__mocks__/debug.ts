@@ -1,4 +1,4 @@
-import { DebugFactoryMock, DebugMock } from '../types';
+import type { DebugFactoryMock, DebugMock } from '../types';
 
 const debugMock = <DebugMock>jest.fn();
 const debugFactoryMock = <DebugFactoryMock>jest.fn().mockReturnValue(debugMock);
